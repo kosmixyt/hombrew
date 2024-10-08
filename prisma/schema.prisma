@@ -75,7 +75,7 @@ model Website {
 
 model WebsiteCategory {
     id       String    @id @default(cuid())
-    name     String
+    name     String    @unique
     Websites Website[]
     User     User?     @relation(fields: [userId], references: [id])
     userId   String?

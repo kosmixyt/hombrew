@@ -5,6 +5,7 @@ import React from "react";
 import { createPortal } from "react-dom";
 import toast from "react-hot-toast";
 import { Modal } from "~/components/modal";
+import { SelectDomain } from "~/components/selectDomain";
 
 export function PasswordDisplay({
   login,
@@ -65,29 +66,30 @@ export function PasswordDisplay({
   );
 }
 
-export function AddButton(props: { websites: Website[] }) {
+export function AddButton(props: {
+  websites: Prisma.WebsiteGetPayload<{ include: { WebsiteCategory: true } }>[];
+}) {
   const router = useRouter();
+  const [domainId, setDomainId] = React.useState<number>(0);
   const [open, setOpen] = React.useState(false);
   return (
     <div
       onClick={() => setOpen(!open)}
-      className="w-40 cursor-pointer select-none rounded-lg bg-slate-900 p-2 pl-4 text-center text-2xl font-bold"
+      className="mt-4 cursor-pointer select-none rounded-lg bg-slate-900 p-4 pl-4 text-center text-2xl font-bold"
     >
       {open &&
         createPortal(
           <span className="text-white" onClick={(e) => e.stopPropagation()}>
             <Modal className="rounded-lg">
-              <div className="flex w-4/6 justify-center rounded-lg bg-slate-950">
+              <div className="flex w-4/6 max-w-80 justify-center rounded-lg bg-slate-950">
                 <div className="p-4">
                   <div className="text-xl font-semibold">
                     Nouveau Mots de Passe
                   </div>
-                  <div>
-                    <input
-                      className="mt-4 rounded-lg border-2 border-white bg-transparent p-2 text-xl text-white outline-none"
-                      placeholder="URL"
-                    />
-                  </div>
+                  <SelectDomain
+                    onselect={(e) => setDomainId(e)}
+                    domains={props.websites}
+                  />
                   <div>
                     <input
                       className="mt-4 rounded-lg border-2 border-white bg-transparent p-2 text-xl text-white outline-none"
@@ -100,13 +102,27 @@ export function AddButton(props: { websites: Website[] }) {
                       placeholder="Password"
                     />
                   </div>
+                  <div className="mt-4 flex gap-1">
+                    <button
+                      onClick={() => setOpen(false)}
+                      className="w-full rounded-lg border-2 border-white bg-slate-950 p-2 text-xl font-semibold"
+                    >
+                      Ajouter
+                    </button>
+                    <button
+                      onClick={() => setOpen(false)}
+                      className="w-full rounded-lg border-2 border-white bg-slate-950 p-2 text-xl font-semibold"
+                    >
+                      Annuler
+                    </button>
+                  </div>
                 </div>
               </div>
             </Modal>
           </span>,
           document.body,
         )}
-      New
+      Ajouter un mot de passe
     </div>
   );
 }

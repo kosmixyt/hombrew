@@ -7,9 +7,13 @@ import { AddButton, PasswordDisplay } from "./passworddisplay";
 import { db } from "~/server/db";
 
 export default async function Password(props: {}) {
-  const websites = await db.website.findMany({
+  const password = await db.password.findMany({
     include: {
-      Password: true,
+      relatedWebsite: {
+        include: {
+          WebsiteCategory: true,
+        },
+      },
     },
   });
   return (
@@ -17,7 +21,9 @@ export default async function Password(props: {}) {
       <div className="pt-20 text-center text-4xl font-semibold">
         Gestionnaire de mots de passe
       </div>
-      <AddButton websites={websites} />
+      <div className="flex justify-center">
+        <AddButton websites={websites} />
+      </div>
       <div className="mt-20 flex flex-wrap items-center justify-center gap-4 overflow-auto">
         {websites.map((i) => (
           <PasswordDisplay
