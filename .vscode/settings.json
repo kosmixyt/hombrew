@@ -1,0 +1,40 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "tsconfig.json": true,
+    "README.md": true,
+    "start-database.sh": true,
+    "prettier.config.js": true,
+    "postcss.config.cjs": true,
+    "pnpm-lock.yaml": true,
+    "next.config.js": true,
+    "package.json": true,
+    "next-env.d.ts": true,
+    ".eslintrc.cjs": true,
+    "public": true,
+    ".vscode": true,
+    "node_modules": true,
+    ".next": true
+  },
+  "hide-files.files": [
+    "tsconfig.json",
+    "README.md",
+    "start-database.sh",
+    "prettier.config.js",
+    "postcss.config.cjs",
+    "pnpm-lock.yaml",
+    "next.config.js",
+    "package.json",
+    "next-env.d.ts",
+    ".eslintrc.cjs",
+    "public",
+    ".vscode",
+    "node_modules",
+    ".next"
+  ]
+}
